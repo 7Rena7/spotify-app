@@ -1,0 +1,25 @@
+<!-- Countries API use -->
+<!-- <ul>
+  <li *ngFor="let country of countries">
+    {{ country.name.official }} {{ country.flag }} -
+    {{ country.continents[0] }} - Population:
+    <small>{{ country.population | number }}</small>
+  </li>
+</ul> -->
+<div class="container animated fadeIn">
+  <h2>Latest Releases in Argentina 🇦🇷</h2>
+  <hr />
+  <app-cards
+    *ngIf="latestReleases$ | async as latestReleases; else loaderOrError"
+    [items]="latestReleases"
+  ></app-cards>
+  <ng-template #loaderOrError>
+    <app-error-modal
+      *ngIf="error; else loader"
+      [errorMessage]="errorMessage"
+    ></app-error-modal>
+    <ng-template #loader>
+      <app-loading></app-loading>
+    </ng-template>
+  </ng-template>
+</div>

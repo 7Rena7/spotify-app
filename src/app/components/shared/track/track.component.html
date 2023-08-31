@@ -1,0 +1,35 @@
+<div class="card border-success mb-3" style="max-width: 26rem">
+  <div class="card-header bg-transparent border-success">
+    <p class="text-dark m-0">Track</p>
+    <small class="text-muted" *ngFor="let artist of track.artists"
+      >{{ artist.name | titleCase | slice : 0 }}
+    </small>
+  </div>
+  <div class="card-body text-success">
+    <h3 class="card-title">{{ track.name }}</h3>
+    <div class="card-text">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Duration: <strong>{{ track["duration_ms"] | msToTime }}</strong>
+        </li>
+        <li class="list-group-item text-danger" *ngIf="track.explicit">
+          <strong>Explicit</strong>
+        </li>
+        <li class="list-group-item" *ngIf="!track.explicit">
+          <strong>Not Explicit</strong>
+        </li>
+      </ul>
+      <br />
+      <a
+        [href]="track['external_urls'].spotify"
+        class="btn btn-success me-2"
+        target="_blank"
+        >Listen on Spotify 🎧</a
+      >
+    </div>
+  </div>
+  <div class="card-footer bg-transparent border-success">
+    <h4 class="text-dark">Preview this song!</h4>
+    <audio [src]="track['preview_url']" controls></audio>
+  </div>
+</div>

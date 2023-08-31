@@ -1,0 +1,70 @@
+<div class="container col-xxl-8 px-3 py-5">
+  <app-loading *ngIf="!artist"></app-loading>
+  <div *ngIf="artist">
+    <div class="row flex-lg-row-reverse align-items-center g-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img
+          [src]="artist.images | noimage"
+          class="d-block mx-lg-auto img-fluid"
+          alt="Artist Image"
+          width="600"
+          height="600"
+          loading="lazy"
+        />
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">
+          {{ artist.name | titleCase }}
+        </h1>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-success">
+            Total Followers ->
+            <strong>{{ artist.followers.total | number }}</strong>
+          </li>
+        </ul>
+        <hr />
+        <h4>Genres</h4>
+        <ul class="list-group" *ngFor="let genre of artist.genres">
+          <li class="list-group-item list-group-item-dark mb-2">
+            {{ genre | titleCase }}
+          </li>
+        </ul>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+          <a
+            [href]="artist['external_urls'].spotify"
+            class="btn btn-outline-success"
+            target="_blank"
+            >Listen on Spotify 🎧</a
+          >
+          <a [routerLink]="['/searchAll']" class="btn btn-outline-danger"
+            >Go Back 👈🏽</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <h3>Albums</h3>
+    <app-cards [items]="albums"></app-cards>
+    <br />
+
+    <hr />
+    <h3>Top Tracks</h3>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col" *ngFor="let track of topTracks">
+        <app-track [track]="track"></app-track>
+      </div>
+    </div>
+    <br />
+
+    <hr />
+    <h3>Similar to {{ artist.name }}</h3>
+    <app-cards [items]="relatedArtists"></app-cards>
+    <br />
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+      <a [routerLink]="['/searchAll']" class="btn btn-outline-danger"
+        >Go Back 👈🏽</a
+      >
+    </div>
+  </div>
+</div>

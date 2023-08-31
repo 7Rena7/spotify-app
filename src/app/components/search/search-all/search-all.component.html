@@ -1,0 +1,39 @@
+<app-search-navbar></app-search-navbar>
+
+<div class="container animated fadeIn">
+  <br />
+
+  <div class="row">
+    <div class="col">
+      <input
+        #term
+        type="text"
+        (keyup.enter)="search(term.value.trim())"
+        class="form-control"
+        placeholder="Type something and press ENTER..."
+      />
+    </div>
+  </div>
+
+  <div *ngIf="term.value !== ''" class="animated fadeIn mt-2">
+    <br />
+    <h5>
+      <small>Searched: {{ term.value }}</small>
+    </h5>
+    <hr />
+  </div>
+
+  <app-cards
+    *ngIf="items$ | async as items; else loaderOrError"
+    [items]="items"
+  ></app-cards>
+  <ng-template #loaderOrError>
+    <app-error-modal
+      *ngIf="error; else loader"
+      [errorMessage]="errorMessage"
+    ></app-error-modal>
+    <ng-template #loader>
+      <app-loading *ngIf="term.value !== ''"></app-loading>
+    </ng-template>
+  </ng-template>
+</div>

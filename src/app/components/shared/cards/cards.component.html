@@ -1,0 +1,37 @@
+<div class="row row-cols-1 row-cols-md-3 g-4 animated fadeIn">
+  <div class="col" *ngFor="let item of items">
+    <div class="card" *ngIf="item.type !== 'track'">
+      <img
+        [src]="item.images | noimage"
+        class="card-img-top"
+        alt="Album Cover"
+      />
+      <div class="card-body">
+        <small class="text-muted">{{ item.type | titleCase }}</small>
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p class="card-text">
+          <small class="text-muted" *ngFor="let artist of item.artists"
+            >{{ artist.name | slice : 0 }}
+          </small>
+        </p>
+        <div class="row">
+          <a
+            [href]="item['external_urls'].spotify"
+            class="btn btn-outline-success me-2"
+            target="_blank"
+            >Listen on Spotify 🎧</a
+          >
+        </div>
+        <div class="row mt-2">
+          <a
+            *ngIf="item.type === 'artist'"
+            [routerLink]="['/artist', item.id]"
+            class="btn btn-warning"
+            >Learn more 🔎</a
+          >
+        </div>
+      </div>
+    </div>
+    <app-track *ngIf="item.type === 'track'" [track]="item"></app-track>
+  </div>
+</div>
